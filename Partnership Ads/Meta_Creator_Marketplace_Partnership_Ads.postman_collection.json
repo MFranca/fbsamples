@@ -1,0 +1,1377 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+    "name": "Meta Creator Marketplace & Partnership Ads API",
+    "description": "A comprehensive collection of API calls for the Meta Creator Marketplace and Partnership Ads integration. Includes endpoints for Creator Discovery (Instagram & Facebook), Permissions Management, Advertisable Media Management, Ad Creation, and Campaign Reporting & Insights. Enriched with real-world examples from the Partnership Ads Booster open-source reference application (github.com/honz/marketing-api-recipes).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication & Setup",
+      "item": [
+        {
+          "name": "Get Page Access Tokens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/me/accounts?access_token={{user_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","me","accounts"],
+              "query": [{"key": "access_token","value": "{{user_access_token}}"}]
+            },
+            "description": "Retrieve a list of Facebook Pages the user manages, along with their Page Access Tokens. This is the first step in the authentication flow."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/me/accounts?access_token={{user_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","me","accounts"],
+                  "query": [{"key": "access_token","value": "{{user_access_token}}"}]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"access_token\": \"EAAB...\",\n      \"category\": \"Brand\",\n      \"name\": \"My Brand Page\",\n      \"id\": \"123456789012345\",\n      \"tasks\": [\"ANALYZE\", \"ADVERTISE\", \"MODERATE\", \"CREATE_CONTENT\", \"MANAGE\"]\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Linked Instagram Account ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{page_id}}?fields=instagram_business_account&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{page_id}}"],
+              "query": [
+                {"key": "fields","value": "instagram_business_account"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Get the Instagram Professional Account ID linked to a specific Facebook Page."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{page_id}}?fields=instagram_business_account&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{page_id}}"],
+                  "query": [
+                    {"key": "fields","value": "instagram_business_account"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"instagram_business_account\": {\n    \"id\": \"17841405309211844\"\n  },\n  \"id\": \"123456789012345\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Creator Discovery",
+      "item": [
+        {
+          "name": "Instagram Creator Marketplace - Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{ig_user_id}}/creator_marketplace_creators?creator_countries=['US','BR']&creator_interests=['FASHION','BEAUTY']&creator_min_followers=25000&fields=id,username,country,gender,biography,insights&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{ig_user_id}}","creator_marketplace_creators"],
+              "query": [
+                {"key": "creator_countries","value": "['US','BR']"},
+                {"key": "creator_interests","value": "['FASHION','BEAUTY']"},
+                {"key": "creator_min_followers","value": "25000"},
+                {"key": "fields","value": "id,username,country,gender,biography,insights"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Search for Instagram creators using filters like country, interests, and follower count."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{ig_user_id}}/creator_marketplace_creators?creator_countries=['US','BR']&creator_interests=['FASHION','BEAUTY']&creator_min_followers=25000&fields=id,username,country,gender,biography,insights&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{ig_user_id}}","creator_marketplace_creators"],
+                  "query": [
+                    {"key": "creator_countries","value": "['US','BR']"},
+                    {"key": "creator_interests","value": "['FASHION','BEAUTY']"},
+                    {"key": "creator_min_followers","value": "25000"},
+                    {"key": "fields","value": "id,username,country,gender,biography,insights"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"178414869381437360\",\n      \"username\": \"fashioncreator_br\",\n      \"country\": \"BR\",\n      \"gender\": \"female\",\n      \"biography\": \"Fashion & lifestyle creator based in São Paulo\",\n      \"insights\": {\n        \"data\": [\n          {\n            \"name\": \"total_followers\",\n            \"value\": 87500\n          }\n        ]\n      }\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"QVFIUkR6amZAhLVVVWGpfTlRBenRsOUJCQ3lR==\",\n      \"after\": \"QVFIUlhBX1hoQzI4SkVFaTRoeEpTdEpJMFdIUh==\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Instagram Creator Marketplace - Get Reels & Insights",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{ig_user_id}}/creator_marketplace_creators?username={{creator_username}}&fields=id,username,biography,has_brand_partnership_experience,branded_content_media{media_type,permalink,likes,views,shares,insights.metrics(views)},recent_media{media_type,permalink,likes,views}&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{ig_user_id}}","creator_marketplace_creators"],
+              "query": [
+                {"key": "username","value": "{{creator_username}}"},
+                {"key": "fields","value": "id,username,biography,has_brand_partnership_experience,branded_content_media{media_type,permalink,likes,views,shares,insights.metrics(views)},recent_media{media_type,permalink,likes,views}"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Get detailed insights, recent media, and branded content media for a specific Instagram creator."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{ig_user_id}}/creator_marketplace_creators?username={{creator_username}}&fields=id,username,biography,has_brand_partnership_experience,branded_content_media{media_type,permalink,likes,views,shares,insights.metrics(views)},recent_media{media_type,permalink,likes,views}&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{ig_user_id}}","creator_marketplace_creators"],
+                  "query": [
+                    {"key": "username","value": "{{creator_username}}"},
+                    {"key": "fields","value": "id,username,biography,has_brand_partnership_experience,branded_content_media{media_type,permalink,likes,views,shares,insights.metrics(views)},recent_media{media_type,permalink,likes,views}"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"178414869381437360\",\n      \"username\": \"fashioncreator_br\",\n      \"biography\": \"Fashion & lifestyle creator based in São Paulo\",\n      \"has_brand_partnership_experience\": true,\n      \"branded_content_media\": {\n        \"data\": [\n          {\n            \"media_type\": \"VIDEO\",\n            \"permalink\": \"https://www.instagram.com/reel/C_Tlbb-sGMi/\",\n            \"views\": 320000,\n            \"likes\": 18500,\n            \"shares\": 4200,\n            \"insights\": {\n              \"data\": [\n                {\"name\": \"views\", \"value\": 320000, \"period\": \"overall\"}\n              ]\n            },\n            \"id\": \"17841463918802342\"\n          }\n        ]\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Facebook Creator Discovery - Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/creator_marketplace/creators?creator_categories=digital_creator&creator_countries=BR,MX&query=lifestyle&fields=creator_id,creator_display_name,creator_alias,creator_bio,creator_follower_count,creator_categories,creator_country&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","creator_marketplace","creators"],
+              "query": [
+                {"key": "creator_categories","value": "digital_creator"},
+                {"key": "creator_countries","value": "BR,MX"},
+                {"key": "query","value": "lifestyle"},
+                {"key": "fields","value": "creator_id,creator_display_name,creator_alias,creator_bio,creator_follower_count,creator_categories,creator_country"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Search for Facebook creators using semantic query and filters."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/creator_marketplace/creators?creator_categories=digital_creator&creator_countries=BR,MX&query=lifestyle&fields=creator_id,creator_display_name,creator_alias,creator_bio,creator_follower_count,creator_categories,creator_country&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","creator_marketplace","creators"],
+                  "query": [
+                    {"key": "creator_categories","value": "digital_creator"},
+                    {"key": "creator_countries","value": "BR,MX"},
+                    {"key": "query","value": "lifestyle"},
+                    {"key": "fields","value": "creator_id,creator_display_name,creator_alias,creator_bio,creator_follower_count,creator_categories,creator_country"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"creator_id\": \"100044413150303\",\n      \"creator_display_name\": \"Carlos Lifestyle\",\n      \"creator_alias\": \"carloslifestyle\",\n      \"creator_bio\": \"Digital creator | Lifestyle & Travel | São Paulo, Brasil\",\n      \"creator_follower_count\": 125000,\n      \"creator_categories\": [\"digital_creator\"],\n      \"creator_country\": \"BR\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"MTM4OTY1MDkwNzkyMTE4NQ==\",\n      \"after\": \"MTAyMzMxNzA5NzY5MjU4NA==\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Facebook Creator Discovery - Content Insights",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/creator_marketplace/content?creator_id={{creator_id}}&content_type=REELS&time_range=L28&sort_by=views&fields=content_id,creator_id,content_type,create_time,caption,content_url,insights&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","creator_marketplace","content"],
+              "query": [
+                {"key": "creator_id","value": "{{creator_id}}"},
+                {"key": "content_type","value": "REELS"},
+                {"key": "time_range","value": "L28"},
+                {"key": "sort_by","value": "views"},
+                {"key": "fields","value": "content_id,creator_id,content_type,create_time,caption,content_url,insights"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Get top performing content (e.g., Reels) for a specific Facebook creator."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/creator_marketplace/content?creator_id={{creator_id}}&content_type=REELS&time_range=L28&sort_by=views&fields=content_id,creator_id,content_type,create_time,caption,content_url,insights&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","creator_marketplace","content"],
+                  "query": [
+                    {"key": "creator_id","value": "{{creator_id}}"},
+                    {"key": "content_type","value": "REELS"},
+                    {"key": "time_range","value": "L28"},
+                    {"key": "sort_by","value": "views"},
+                    {"key": "fields","value": "content_id,creator_id,content_type,create_time,caption,content_url,insights"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"content_id\": \"1234567890123456\",\n      \"creator_id\": \"100044413150303\",\n      \"content_type\": \"REELS\",\n      \"create_time\": \"2026-02-15T18:30:00+0000\",\n      \"caption\": \"My morning routine in São Paulo 🌅 #lifestyle #brazil\",\n      \"content_url\": \"https://www.facebook.com/reel/1234567890123456\",\n      \"insights\": {\n        \"data\": [\n          {\"name\": \"views\", \"value\": 245000, \"period\": \"overall\"},\n          {\"name\": \"reach\", \"value\": 198000, \"period\": \"overall\"},\n          {\"name\": \"reactions\", \"value\": 12500, \"period\": \"overall\"},\n          {\"name\": \"shares\", \"value\": 3200, \"period\": \"overall\"}\n        ]\n      }\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Permissions Management",
+      "item": [
+        {
+          "name": "Request Account-Level Permission (by Creator IG ID)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "creator_instagram_account","value": "{{creator_ig_id}}","type": "text"},
+                {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+              ]
+            },
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"]
+            },
+            "description": "Send a request to a creator for account-level partnership ad permissions using the creator's Instagram account ID."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {"key": "creator_instagram_account","value": "{{creator_ig_id}}","type": "text"},
+                    {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+                  ]
+                },
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Request Account-Level Permission (by Creator Username)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "creator_instagram_username","value": "{{creator_username}}","type": "text"},
+                {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+              ]
+            },
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"]
+            },
+            "description": "Alternative to requesting by ID: send a permission request using the creator's Instagram username instead. Useful when you only have the username from the discovery step. Source: partnership_ads_booster.py."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {"key": "creator_instagram_username","value": "{{creator_username}}","type": "text"},
+                    {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+                  ]
+                },
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "View Account-Level Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions?fields=creator_ig_id,creator_username,permission_status&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"],
+              "query": [
+                {"key": "fields","value": "creator_ig_id,creator_username,permission_status"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "View the status of all account-level permission requests for the brand. Returns creator_ig_id, creator_username, and permission_status for each creator. Supports cursor-based pagination via paging.next. Source: partnership_ads_booster.py."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions?fields=creator_ig_id,creator_username,permission_status&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"],
+                  "query": [
+                    {"key": "fields","value": "creator_ig_id,creator_username,permission_status"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"creator_ig_id\": \"178414869381437360\",\n      \"creator_username\": \"fashioncreator_br\",\n      \"permission_status\": \"APPROVED\"\n    },\n    {\n      \"creator_ig_id\": \"178414869381437361\",\n      \"creator_username\": \"another_creator\",\n      \"permission_status\": \"PENDING\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"QVFIUkR6amZAhLVVVWGpfTlRBenRsOUJCQ3lR==\",\n      \"after\": \"QVFIUlhBX1hoQzI4SkVFaTRoeEpTdEpJMFdIUh==\"\n    },\n    \"next\": \"https://graph.facebook.com/v25.0/...\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Revoke Account-Level Permission",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "creator_instagram_account","value": "{{creator_ig_id}}","type": "text"},
+                {"key": "revoke","value": "true","type": "text"},
+                {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+              ]
+            },
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"]
+            },
+            "description": "Revoke a previously granted account-level partnership ad permission from a creator. Pass revoke=true along with the creator_instagram_account ID."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {"key": "creator_instagram_account","value": "{{creator_ig_id}}","type": "text"},
+                    {"key": "revoke","value": "true","type": "text"},
+                    {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+                  ]
+                },
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{brand_ig_id}}/branded_content_ad_permissions",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{brand_ig_id}}","branded_content_ad_permissions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"success\": true\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Advertisable Media Management",
+      "description": "Endpoints for fetching and managing advertisable media from creators. These calls are derived from the Partnership Ads Booster reference application (partnership_ads_booster.py). They cover the full range of ways to query the branded_content_advertisable_medias edge.",
+      "item": [
+        {
+          "name": "Fetch Advertisable Media (All - Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&limit=25&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+              "query": [
+                {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                {"key": "limit","value": "25"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Fetch all advertisable medias for the brand's Instagram account. Supports cursor-based pagination — use the paging.next URL for subsequent pages. The API maximum page size is 25. Source: partnership_ads_booster.py (fetch_all_advertisable_medias / fetch_page_of_advertisable_medias)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&limit=25&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+                  "query": [
+                    {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                    {"key": "limit","value": "25"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"17841463918802342\",\n      \"permalink\": \"https://www.instagram.com/reel/C_Tlbb-sGMi/\",\n      \"owner_id\": \"178414869381437360\",\n      \"has_permission_for_partnership_ad\": true,\n      \"eligibility_errors\": []\n    },\n    {\n      \"id\": \"17841463918802343\",\n      \"permalink\": \"https://www.instagram.com/reel/C_Tlbb-sGMj/\",\n      \"owner_id\": \"178414869381437361\",\n      \"has_permission_for_partnership_ad\": false,\n      \"eligibility_errors\": [\"MEDIA_NOT_ELIGIBLE\"]\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"QVFIUkR6amZAhLVVVWGpfTlRBenRsOUJCQ3lR==\",\n      \"after\": \"QVFIUlhBX1hoQzI4SkVFaTRoeEpTdEpJMFdIUh==\"\n    },\n    \"next\": \"https://graph.facebook.com/v22.0/17841405309211844/branded_content_advertisable_medias?fields=...\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Advertisable Media (Filtered by Creator Username)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?creator_username={{creator_username}}&fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&limit=25&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+              "query": [
+                {"key": "creator_username","value": "{{creator_username}}"},
+                {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                {"key": "limit","value": "25"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Fetch advertisable medias filtered by a specific creator's Instagram username. Highly recommended to avoid fetching large datasets when you already know which creator you want to boost. Source: partnership_ads_booster.py."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?creator_username={{creator_username}}&fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&limit=25&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+                  "query": [
+                    {"key": "creator_username","value": "{{creator_username}}"},
+                    {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                    {"key": "limit","value": "25"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"17841463918802342\",\n      \"permalink\": \"https://www.instagram.com/reel/C_Tlbb-sGMi/\",\n      \"owner_id\": \"178414869381437360\",\n      \"has_permission_for_partnership_ad\": true,\n      \"eligibility_errors\": []\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"QVFIUkR6amZAhLVVVWGpfTlRBenRsOUJCQ3lR==\",\n      \"after\": \"QVFIUlhBX1hoQzI4SkVFaTRoeEpTdEpJMFdIUh==\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Check Media Eligibility by Ad Code (Shortcode)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?ad_code={{ig_media_shortcode}}&fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+              "query": [
+                {"key": "ad_code","value": "{{ig_media_shortcode}}"},
+                {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Check the eligibility of a specific media using its Instagram shortcode (ad_code). The shortcode is the alphanumeric string extracted from the Instagram reel URL, e.g., 'C_Tlbb-sGMi' from 'https://www.instagram.com/reel/C_Tlbb-sGMi/'. Source: partnership_ads_booster.py (fetch_branded_content_advertisable_medias)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?ad_code={{ig_media_shortcode}}&fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+                  "query": [
+                    {"key": "ad_code","value": "{{ig_media_shortcode}}"},
+                    {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"17841463918802342\",\n      \"permalink\": \"https://www.instagram.com/reel/C_Tlbb-sGMi/\",\n      \"owner_id\": \"178414869381437360\",\n      \"has_permission_for_partnership_ad\": true,\n      \"eligibility_errors\": []\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Check Media Eligibility by Permalink",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?permalinks=[\"C_Tlbb-sGMi\"]&fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+              "query": [
+                {"key": "permalinks","value": "[\"C_Tlbb-sGMi\"]"},
+                {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Check the eligibility of one or more media items by passing an array of Instagram shortcodes as the permalinks parameter. Useful when you have a list of posts from a CSV or UI input. Source: partnership_ads_booster.py."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/{{brand_ig_id}}/branded_content_advertisable_medias?permalinks=[\"C_Tlbb-sGMi\"]&fields=eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","{{brand_ig_id}}","branded_content_advertisable_medias"],
+                  "query": [
+                    {"key": "permalinks","value": "[\"C_Tlbb-sGMi\"]"},
+                    {"key": "fields","value": "eligibility_errors,owner_id,permalink,id,has_permission_for_partnership_ad"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"17841463918802342\",\n      \"permalink\": \"https://www.instagram.com/reel/C_Tlbb-sGMi/\",\n      \"owner_id\": \"178414869381437360\",\n      \"has_permission_for_partnership_ad\": true,\n      \"eligibility_errors\": []\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Media Engagement Metrics (Likes & Comments)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/{{ig_media_id}}?fields=like_count,comments_count&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","{{ig_media_id}}"],
+              "query": [
+                {"key": "fields","value": "like_count,comments_count"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Fetch basic engagement metrics (like_count and comments_count) for a specific Instagram media object. This is used in the Partnership Ads Booster to enrich the advertisable media list with engagement data before deciding which posts to boost. Source: partnership_ads_booster.py (fetch_media_insights)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/{{ig_media_id}}?fields=like_count,comments_count&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","{{ig_media_id}}"],
+                  "query": [
+                    {"key": "fields","value": "like_count,comments_count"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"like_count\": 18500,\n  \"comments_count\": 342,\n  \"id\": \"17841463918802342\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Ad Creation",
+      "item": [
+        {
+          "name": "Upload Instagram Video for Partnership Ad",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/act_{{ad_account_id}}/advideos?source_instagram_media_id={{ig_media_id}}&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","act_{{ad_account_id}}","advideos"],
+              "query": [
+                {"key": "source_instagram_media_id","value": "{{ig_media_id}}"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Upload an Instagram video to the ad account's video library. This is a required step before creating the ad creative when using the permalink flow (as opposed to the ad_code flow). The returned video ID is then passed to the adcreatives endpoint. Source: partnership_ads_booster.py (upload_instagram_video)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/act_{{ad_account_id}}/advideos?source_instagram_media_id={{ig_media_id}}&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","act_{{ad_account_id}}","advideos"],
+                  "query": [
+                    {"key": "source_instagram_media_id","value": "{{ig_media_id}}"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"1234567890123456\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Upload Instagram Video with Ad Code (Partnership Ad)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/act_{{ad_account_id}}/advideos?source_instagram_media_id={{ig_media_id}}&partnership_ad_ad_code={{ig_media_shortcode}}&is_partnership_ad=true&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","act_{{ad_account_id}}","advideos"],
+              "query": [
+                {"key": "source_instagram_media_id","value": "{{ig_media_id}}"},
+                {"key": "partnership_ad_ad_code","value": "{{ig_media_shortcode}}"},
+                {"key": "is_partnership_ad","value": "true"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Upload an Instagram video using the ad_code (shortcode) flow. Pass partnership_ad_ad_code and is_partnership_ad=true in addition to source_instagram_media_id. This is the preferred flow when the creator has shared an ad code directly. Source: partnership_ads_booster.py (upload_instagram_video with ad_code)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/act_{{ad_account_id}}/advideos?source_instagram_media_id={{ig_media_id}}&partnership_ad_ad_code={{ig_media_shortcode}}&is_partnership_ad=true&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","act_{{ad_account_id}}","advideos"],
+                  "query": [
+                    {"key": "source_instagram_media_id","value": "{{ig_media_id}}"},
+                    {"key": "partnership_ad_ad_code","value": "{{ig_media_shortcode}}"},
+                    {"key": "is_partnership_ad","value": "true"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"1234567890123457\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Ad Creative - Boost Existing Post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "object_id","value": "{{brand_page_id}}","type": "text"},
+                {"key": "source_instagram_media_id","value": "{{ig_media_id}}","type": "text"},
+                {"key": "facebook_branded_content","value": "{\"sponsor_page_id\": \"{{brand_page_id}}\"}","type": "text"},
+                {"key": "instagram_branded_content","value": "{\"sponsor_id\": \"{{brand_ig_id}}\"}","type": "text"},
+                {"key": "branded_content","value": "{\"ad_format\": \"1\"}","type": "text"},
+                {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+              ]
+            },
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/adcreatives",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","act_{{ad_account_id}}","adcreatives"]
+            },
+            "description": "Create an ad creative by boosting an existing Instagram post from a creator."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {"key": "object_id","value": "{{brand_page_id}}","type": "text"},
+                    {"key": "source_instagram_media_id","value": "{{ig_media_id}}","type": "text"},
+                    {"key": "facebook_branded_content","value": "{\"sponsor_page_id\": \"{{brand_page_id}}\"}","type": "text"},
+                    {"key": "instagram_branded_content","value": "{\"sponsor_id\": \"{{brand_ig_id}}\"}","type": "text"},
+                    {"key": "branded_content","value": "{\"ad_format\": \"1\"}","type": "text"},
+                    {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+                  ]
+                },
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/adcreatives",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","act_{{ad_account_id}}","adcreatives"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"23849123456789\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Ad Creative - With CTA, UTM & Testimonial (Full Options)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v23.0/act_{{ad_account_id}}/adcreatives?object_id={{brand_page_id}}&facebook_branded_content={\"sponsor_page_id\":\"{{brand_page_id}}\"}&instagram_branded_content={\"sponsor_id\":\"{{brand_ig_id}}\"}&branded_content={\"instagram_boost_post_access_token\":\"{{ig_media_shortcode}}\",\"testimonial\":\"This product changed my life!\"}&call_to_action={\"type\":\"LEARN_MORE\",\"value\":{\"link\":\"https://www.yourbrand.com\"}}&url_tags=utm_source%3Dinstagram%26utm_medium%3Dpaid%26utm_campaign%3Dcreator_collab&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v23.0","act_{{ad_account_id}}","adcreatives"],
+              "query": [
+                {"key": "object_id","value": "{{brand_page_id}}"},
+                {"key": "facebook_branded_content","value": "{\"sponsor_page_id\":\"{{brand_page_id}}\"}"},
+                {"key": "instagram_branded_content","value": "{\"sponsor_id\":\"{{brand_ig_id}}\"}"},
+                {"key": "branded_content","value": "{\"instagram_boost_post_access_token\":\"{{ig_media_shortcode}}\",\"testimonial\":\"This product changed my life!\"}"},
+                {"key": "call_to_action","value": "{\"type\":\"LEARN_MORE\",\"value\":{\"link\":\"https://www.yourbrand.com\"}}"},
+                {"key": "url_tags","value": "utm_source%3Dinstagram%26utm_medium%3Dpaid%26utm_campaign%3Dcreator_collab"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Create a partnership ad creative using the ad_code (instagram_boost_post_access_token) flow, with a call-to-action (CTA), UTM tracking parameters, and an optional testimonial overlay. This is the most complete creative creation call. Source: partnership_ads_booster.py (create_ad_creative with all optional parameters)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v23.0/act_{{ad_account_id}}/adcreatives",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v23.0","act_{{ad_account_id}}","adcreatives"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"23849123456790\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Ad Creative - With Advantage+ Catalog (Product Set)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v23.0/act_{{ad_account_id}}/adcreatives?object_id={{brand_page_id}}&facebook_branded_content={\"sponsor_page_id\":\"{{brand_page_id}}\"}&instagram_branded_content={\"sponsor_id\":\"{{brand_ig_id}}\"}&source_instagram_media_id={{ig_media_id}}&call_to_action={\"type\":\"SHOP_NOW\",\"value\":{\"link\":\"https://www.yourbrand.com/shop\"}}&degrees_of_freedom_spec={\"creative_features_spec\":{\"product_extensions\":{\"enroll_status\":\"OPT_IN\"}}}&creative_sourcing_spec={\"associated_product_set_id\":\"{{product_set_id}}\"}&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v23.0","act_{{ad_account_id}}","adcreatives"],
+              "query": [
+                {"key": "object_id","value": "{{brand_page_id}}"},
+                {"key": "facebook_branded_content","value": "{\"sponsor_page_id\":\"{{brand_page_id}}\"}"},
+                {"key": "instagram_branded_content","value": "{\"sponsor_id\":\"{{brand_ig_id}}\"}"},
+                {"key": "source_instagram_media_id","value": "{{ig_media_id}}"},
+                {"key": "call_to_action","value": "{\"type\":\"SHOP_NOW\",\"value\":{\"link\":\"https://www.yourbrand.com/shop\"}}"},
+                {"key": "degrees_of_freedom_spec","value": "{\"creative_features_spec\":{\"product_extensions\":{\"enroll_status\":\"OPT_IN\"}}}"},
+                {"key": "creative_sourcing_spec","value": "{\"associated_product_set_id\":\"{{product_set_id}}\"}"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Create a partnership ad creative that links to an Advantage+ Catalog product set. This enables dynamic product overlays on the creator's reel, driving direct product discovery and purchase. Requires degrees_of_freedom_spec with product_extensions OPT_IN and a creative_sourcing_spec with the product_set_id. Source: partnership_ads_booster.py (create_ad_creative with product_set_id)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v23.0/act_{{ad_account_id}}/adcreatives",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v23.0","act_{{ad_account_id}}","adcreatives"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"23849123456791\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Ad Creative - New Creative",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type","value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"degrees_of_freedom_spec\": {\n    \"creative_features_spec\": {\n      \"standard_enhancements\": {\n        \"action_metadata\": {\"type\": \"DEFAULT\"},\n        \"enroll_status\": \"OPT_IN\"\n      }\n    },\n    \"degrees_of_freedom_type\": \"USER_ENROLLED_AUTOFLOW\"\n  },\n  \"facebook_branded_content\": {\n    \"sponsor_page_id\": \"{{creator_page_id}}\"\n  },\n  \"instagram_branded_content\": {\n    \"sponsor_id\": \"{{creator_ig_id}}\"\n  },\n  \"object_story_spec\": {\n    \"page_id\": \"{{brand_page_id}}\",\n    \"link_data\": {\n      \"attachment_style\": \"link\",\n      \"call_to_action\": {\"type\": \"LEARN_MORE\"},\n      \"link\": \"https://www.yourbrand.com\",\n      \"image_hash\": \"{{image_hash}}\"\n    }\n  },\n  \"access_token\": \"{{page_access_token}}\"\n}"
+            },
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/adcreatives",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","act_{{ad_account_id}}","adcreatives"]
+            },
+            "description": "Create a partnership ad using new creative assets (image/video) uploaded by the advertiser."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [{"key": "Content-Type","value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"degrees_of_freedom_spec\": {\n    \"creative_features_spec\": {\n      \"standard_enhancements\": {\n        \"action_metadata\": {\"type\": \"DEFAULT\"},\n        \"enroll_status\": \"OPT_IN\"\n      }\n    },\n    \"degrees_of_freedom_type\": \"USER_ENROLLED_AUTOFLOW\"\n  },\n  \"facebook_branded_content\": {\n    \"sponsor_page_id\": \"{{creator_page_id}}\"\n  },\n  \"instagram_branded_content\": {\n    \"sponsor_id\": \"{{creator_ig_id}}\"\n  },\n  \"object_story_spec\": {\n    \"page_id\": \"{{brand_page_id}}\",\n    \"link_data\": {\n      \"attachment_style\": \"link\",\n      \"call_to_action\": {\"type\": \"LEARN_MORE\"},\n      \"link\": \"https://www.yourbrand.com\",\n      \"image_hash\": \"{{image_hash}}\"\n    }\n  },\n  \"access_token\": \"{{page_access_token}}\"\n}"
+                },
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/adcreatives",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","act_{{ad_account_id}}","adcreatives"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"23849123456792\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Ad (with App Events Tracking)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v22.0/act_{{ad_account_id}}/ads?name=Partnership+Ad&adset_id={{adset_id}}&creative={\"creative_id\":\"{{creative_id}}\"}&status=PAUSED&tracking_specs=[{\"action.type\":\"app_custom_event\",\"application\":\"{{app_id}}\"}]&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v22.0","act_{{ad_account_id}}","ads"],
+              "query": [
+                {"key": "name","value": "Partnership Ad"},
+                {"key": "adset_id","value": "{{adset_id}}"},
+                {"key": "creative","value": "{\"creative_id\":\"{{creative_id}}\"}"},
+                {"key": "status","value": "PAUSED"},
+                {"key": "tracking_specs","value": "[{\"action.type\":\"app_custom_event\",\"application\":\"{{app_id}}\"}]"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Create the final ad object with optional app events tracking_specs. When app_id is provided, the ad will track custom app events for mobile app campaigns. The ad is created in PAUSED status — change to ACTIVE when ready to go live. Source: partnership_ads_booster.py (create_ad with app_id)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v22.0/act_{{ad_account_id}}/ads",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v22.0","act_{{ad_account_id}}","ads"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"23849123456793\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Publish the Ad (Basic)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "name","value": "Partnership Ad","type": "text"},
+                {"key": "adset_id","value": "{{adset_id}}","type": "text"},
+                {"key": "creative","value": "{\"creative_id\": \"{{creative_id}}\"}","type": "text"},
+                {"key": "status","value": "PAUSED","type": "text"},
+                {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+              ]
+            },
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/ads",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","act_{{ad_account_id}}","ads"]
+            },
+            "description": "Create and publish the ad using the generated creative_id. The ad starts in PAUSED status."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {"key": "name","value": "Partnership Ad","type": "text"},
+                    {"key": "adset_id","value": "{{adset_id}}","type": "text"},
+                    {"key": "creative","value": "{\"creative_id\": \"{{creative_id}}\"}","type": "text"},
+                    {"key": "status","value": "PAUSED","type": "text"},
+                    {"key": "access_token","value": "{{page_access_token}}","type": "text"}
+                  ]
+                },
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/ads",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","act_{{ad_account_id}}","ads"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": \"23849123456794\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Campaign Reporting & Insights",
+      "description": "Endpoints for retrieving ad performance data, Reels-specific insights, and Business Manager asset information. Derived from reels_performant_creative_dashboard.py and helpers.py in the reference application.",
+      "item": [
+        {
+          "name": "Ad Account Insights - Reels Placement Breakdown",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/insights?level=ad&fields=impressions,reach,spend,ad_id,ad_name&breakdowns=publisher_platform,platform_position&filtering=[{\"field\":\"publisher_platform\",\"operator\":\"ANY\",\"value\":[\"instagram\"]},{\"field\":\"platform_position\",\"operator\":\"ANY\",\"value\":[\"reels\"]}]&date_preset=last_30d&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","act_{{ad_account_id}}","insights"],
+              "query": [
+                {"key": "level","value": "ad"},
+                {"key": "fields","value": "impressions,reach,spend,ad_id,ad_name"},
+                {"key": "breakdowns","value": "publisher_platform,platform_position"},
+                {"key": "filtering","value": "[{\"field\":\"publisher_platform\",\"operator\":\"ANY\",\"value\":[\"instagram\"]},{\"field\":\"platform_position\",\"operator\":\"ANY\",\"value\":[\"reels\"]}]"},
+                {"key": "date_preset","value": "last_30d"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Retrieve ad-level insights filtered specifically for Instagram Reels placements. This is the core call used in the Reels Performant Creative Dashboard to identify which creator partnership ads are performing best on Reels. Source: reels_performant_creative_dashboard.py."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/act_{{ad_account_id}}/insights?level=ad&fields=impressions,reach,spend,ad_id,ad_name&breakdowns=publisher_platform,platform_position&filtering=[{\"field\":\"publisher_platform\",\"operator\":\"ANY\",\"value\":[\"instagram\"]},{\"field\":\"platform_position\",\"operator\":\"ANY\",\"value\":[\"reels\"]}]&date_preset=last_30d&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","act_{{ad_account_id}}","insights"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"impressions\": \"145230\",\n      \"reach\": \"98450\",\n      \"spend\": \"312.50\",\n      \"ad_id\": \"23849123456793\",\n      \"ad_name\": \"Partnership Ad - fashioncreator_br\",\n      \"publisher_platform\": \"instagram\",\n      \"platform_position\": \"reels\",\n      \"date_start\": \"2026-02-09\",\n      \"date_stop\": \"2026-03-10\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"QVFIUkR6amZAhLVVVWGpfTlRBenRsOUJCQ3lR==\",\n      \"after\": \"QVFIUlhBX1hoQzI4SkVFaTRoeEpTdEpJMFdIUh==\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Business Owned Ad Accounts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{business_id}}/owned_ad_accounts?fields=id,name,account_status,currency&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{business_id}}","owned_ad_accounts"],
+              "query": [
+                {"key": "fields","value": "id,name,account_status,currency"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "List all ad accounts owned by a Business Manager. Used to enumerate available ad accounts before creating campaigns. Source: helpers.py (get_ad_accounts_for_business_id)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{business_id}}/owned_ad_accounts?fields=id,name,account_status,currency&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{business_id}}","owned_ad_accounts"],
+                  "query": [
+                    {"key": "fields","value": "id,name,account_status,currency"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"act_123456789\",\n      \"name\": \"Brand Main Ad Account\",\n      \"account_status\": 1,\n      \"currency\": \"USD\"\n    },\n    {\n      \"id\": \"act_987654321\",\n      \"name\": \"Brand LATAM Ad Account\",\n      \"account_status\": 1,\n      \"currency\": \"BRL\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Business Owned Product Catalogs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{business_id}}/owned_product_catalogs?fields=id,name,product_count&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{business_id}}","owned_product_catalogs"],
+              "query": [
+                {"key": "fields","value": "id,name,product_count"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "List all product catalogs owned by a Business Manager. Required when using Advantage+ Catalog features in partnership ad creatives (product_set_id). Source: helpers.py (get_catalogs_for_business_id)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{business_id}}/owned_product_catalogs?fields=id,name,product_count&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{business_id}}","owned_product_catalogs"],
+                  "query": [
+                    {"key": "fields","value": "id,name,product_count"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1234567890\",\n      \"name\": \"Brand Product Catalog\",\n      \"product_count\": 1250\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Business Pixels",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{business_id}}/adspixels?fields=id,name,last_fired_time,match_rate_approx&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{business_id}}","adspixels"],
+              "query": [
+                {"key": "fields","value": "id,name,last_fired_time,match_rate_approx"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "List all Meta Pixel (Ads Pixel) assets for a Business Manager. Useful for verifying pixel health and match rates before launching partnership ad campaigns that rely on conversion tracking. Source: helpers.py (get_pixels_for_business_id)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{business_id}}/adspixels?fields=id,name,last_fired_time,match_rate_approx&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{business_id}}","adspixels"],
+                  "query": [
+                    {"key": "fields","value": "id,name,last_fired_time,match_rate_approx"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"9876543210\",\n      \"name\": \"Brand Website Pixel\",\n      \"last_fired_time\": \"2026-03-10T12:00:00+0000\",\n      \"match_rate_approx\": 78\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Pixel Stats & Match Rate",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization","value": "Bearer {{page_access_token}}","type": "text"}
+            ],
+            "url": {
+              "raw": "https://graph.facebook.com/v25.0/{{pixel_id}}?fields=match_rate_approx,event_stats,automatic_matching_fields&access_token={{page_access_token}}",
+              "protocol": "https",
+              "host": ["graph","facebook","com"],
+              "path": ["v25.0","{{pixel_id}}"],
+              "query": [
+                {"key": "fields","value": "match_rate_approx,event_stats,automatic_matching_fields"},
+                {"key": "access_token","value": "{{page_access_token}}"}
+              ]
+            },
+            "description": "Get detailed stats for a specific Meta Pixel, including match rate, event statistics, and automatic matching fields. High match rates (above 70%) are critical for effective conversion optimization in partnership ad campaigns. Source: helpers.py (get_stats_and_settings_for_pixels)."
+          },
+          "response": [
+            {
+              "name": "Sample Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://graph.facebook.com/v25.0/{{pixel_id}}?fields=match_rate_approx,event_stats,automatic_matching_fields&access_token={{page_access_token}}",
+                  "protocol": "https",
+                  "host": ["graph","facebook","com"],
+                  "path": ["v25.0","{{pixel_id}}"],
+                  "query": [
+                    {"key": "fields","value": "match_rate_approx,event_stats,automatic_matching_fields"},
+                    {"key": "access_token","value": "{{page_access_token}}"}
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"match_rate_approx\": 78,\n  \"event_stats\": {\n    \"data\": [\n      {\"event_name\": \"PageView\", \"count\": 45230},\n      {\"event_name\": \"Purchase\", \"count\": 1820},\n      {\"event_name\": \"AddToCart\", \"count\": 8750}\n    ]\n  },\n  \"automatic_matching_fields\": [\"em\", \"ph\", \"fn\", \"ln\"],\n  \"id\": \"9876543210\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {"key": "user_access_token","value": "YOUR_USER_ACCESS_TOKEN"},
+    {"key": "page_access_token","value": "YOUR_PAGE_ACCESS_TOKEN"},
+    {"key": "page_id","value": "YOUR_FACEBOOK_PAGE_ID"},
+    {"key": "ig_user_id","value": "YOUR_INSTAGRAM_BUSINESS_ACCOUNT_ID"},
+    {"key": "creator_username","value": "CREATOR_IG_USERNAME"},
+    {"key": "creator_id","value": "CREATOR_FB_ID"},
+    {"key": "brand_ig_id","value": "BRAND_IG_ID"},
+    {"key": "creator_ig_id","value": "CREATOR_IG_ID"},
+    {"key": "brand_page_id","value": "BRAND_FB_PAGE_ID"},
+    {"key": "creator_page_id","value": "CREATOR_FB_PAGE_ID"},
+    {"key": "ad_account_id","value": "YOUR_AD_ACCOUNT_ID_WITHOUT_ACT_PREFIX"},
+    {"key": "ig_media_id","value": "INSTAGRAM_MEDIA_ID_TO_BOOST"},
+    {"key": "ig_media_shortcode","value": "INSTAGRAM_REEL_SHORTCODE_e.g._C_Tlbb-sGMi"},
+    {"key": "image_hash","value": "UPLOADED_IMAGE_HASH"},
+    {"key": "adset_id","value": "YOUR_ADSET_ID"},
+    {"key": "creative_id","value": "GENERATED_CREATIVE_ID"},
+    {"key": "product_set_id","value": "YOUR_PRODUCT_SET_ID"},
+    {"key": "app_id","value": "YOUR_MOBILE_APP_ID"},
+    {"key": "business_id","value": "YOUR_BUSINESS_MANAGER_ID"},
+    {"key": "pixel_id","value": "YOUR_META_PIXEL_ID"}
+  ]
+}
